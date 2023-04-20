@@ -4,7 +4,7 @@ import SearchInput from './SearchInput';
 import ChatFolders from './ChatFolders';
 import ChatList from './ChatList';
 import FloatingNewChat from './FloatingNewChat';
-import CHAT_SUMMERIES from 'mock-data/ChatList.json';
+import CHAT_SUMMERIES from 'mock-data/ChatSummery.json';
 
 export default function Left() {
   return (
