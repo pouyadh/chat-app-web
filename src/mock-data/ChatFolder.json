@@ -1,9 +1,11 @@
 [
   {
+    "id": 21,
     "name": "Proxy",
     "chatIds": [1, 2, 5, 6]
   },
   {
+    "id": 22,
     "name": "Uni",
     "chatIds": [3, 7, 8, 9, 12]
   }
