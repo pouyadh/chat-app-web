@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "type": "channel",
+    "avatarURL": "https://api.multiavatar.com/Binx Bond.svg",
+    "title": "Brunch this weekend?",
+    "lastMessageText": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+    "unreadMessagesCount": 5
+  },
+  {
+    "id": 2,
+    "type": "channel",
+    "avatarURL": "https://api.multiavatar.com/Binx BondA.svg",
+    "title": "Summer BBQ",
+    "lastMessageText": "Wish I could come, but I&apos;m out of town this Friday.",
+    "unreadMessagesCount": 3
+  },
+  {
+    "id": 3,
+    "type": "person",
+    "avatarURL": "https://api.multiavatar.com/Pouya Dehghani.svg",
+    "title": "Pouya Dehghani",
+    "lastMessageText": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+    "unreadMessagesCount": 5
+  },
+  {
+    "id": 4,
+    "type": "person",
+    "avatarURL": "https://api.multiavatar.com/Ali Fatehi.svg",
+    "title": "Ali Fatehi",
+    "lastMessageText": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+    "unreadMessagesCount": 5
+  },
+  {
+    "id": 6,
+    "type": "person",
+    "avatarURL": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+    "title": "Mohammad Sharifi",
+    "lastMessageText": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+    "unreadMessagesCount": 5
+  },
+  {
+    "id": 7,
+    "type": "person",
+    "avatarURL": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+    "title": "Mohammad Sharifi",
+    "lastMessageText": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+    "unreadMessagesCount": 5
+  },
+  {
+    "id": 8,
+    "type": "person",
+    "avatarURL": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+    "title": "Mohammad Sharifi",
+    "lastMessageText": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+    "unreadMessagesCount": 5
+  },
+  {
+    "id": 9,
+    "type": "person",
+    "avatarURL": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+    "title": "Mohammad Sharifi",
+    "lastMessageText": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+    "unreadMessagesCount": 5
+  },
+  {
+    "id": 10,
+    "type": "person",
+    "avatarURL": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+    "title": "Mohammad Sharifi",
+    "lastMessageText": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+    "unreadMessagesCount": 5
+  },
+  {
+    "id": 11,
+    "type": "person",
+    "avatarURL": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+    "title": "Mohammad Sharifi",
+    "lastMessageText": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+    "unreadMessagesCount": 5
+  },
+  {
+    "id": 12,
+    "type": "person",
+    "avatarURL": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+    "title": "Mohammad Sharifi",
+    "lastMessageText": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+    "unreadMessagesCount": 5
+  },
+  {
+    "id": 13,
+    "type": "person",
+    "avatarURL": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+    "title": "Mohammad Sharifi",
+    "lastMessageText": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+    "unreadMessagesCount": 5
+  },
+  {
+    "id": 14,
+    "type": "person",
+    "avatarURL": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+    "title": "Mohammad Sharifi",
+    "lastMessageText": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+    "unreadMessagesCount": 5
+  },
+  {
+    "id": 15,
+    "type": "person",
+    "avatarURL": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+    "title": "Mohammad Sharifi",
+    "lastMessageText": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+    "unreadMessagesCount": 5
+  },
+  {
+    "id": 16,
+    "type": "person",
+    "avatarURL": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+    "title": "Mohammad Sharifi",
+    "lastMessageText": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+    "unreadMessagesCount": 5
+  }
+]
