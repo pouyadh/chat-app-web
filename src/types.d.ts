@@ -15,3 +15,14 @@ type ChatFolder = {
   name: string;
   chatIds: DatabaseRecordID[];
 };
+
+interface BaseChatMessage {
+  id: DatabaseRecordID;
+  type: 'text' | 'image-text' | 'image';
+  direction: 'in' | 'out';
+  text?: string;
+  imageUrl?: string;
+  senderId: DatabaseRecordID;
+  createdAt: number;
+  outgoingState?: 'sending' | 'sent' | 'received' | 'seen';
+}
