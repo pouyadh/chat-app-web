@@ -1,4 +1,4 @@
-import { Box, IconButton, Stack } from '@mui/joy';
+import { Box, IconButton, LinearProgress, Stack } from '@mui/joy';
 import MainMenu from './MainMenu';
 import SearchInput from './SearchInput';
 import ChatFolders from './ChatFolders';
@@ -8,6 +8,7 @@ import CHAT_SUMMERIES from 'mock-data/ChatSummery.json';
 import CHAT_FOLDERS from 'mock-data/ChatFolder.json';
 
 export default function Left() {
+  const loading = false;
   return (
     <Box
       sx={{
@@ -21,6 +22,12 @@ export default function Left() {
       }}
     >
       <Stack sx={{ maxHeight: '100vh' }}>
+        <LinearProgress
+          variant="plain"
+          color="info"
+          thickness={3}
+          value={loading ? undefined : 0}
+        />
         <Stack direction="row" spacing={1} padding={1}>
           <MainMenu />
           <SearchInput />
