@@ -5,6 +5,7 @@ import ChatFolders from './ChatFolders';
 import ChatList from './ChatList';
 import FloatingNewChat from './FloatingNewChat';
 import CHAT_SUMMERIES from 'mock-data/ChatSummery.json';
+import CHAT_FOLDERS from 'mock-data/ChatFolder.json';
 
 export default function Left() {
   return (
@@ -23,7 +24,7 @@ export default function Left() {
           <MainMenu />
           <SearchInput />
         </Stack>
-        <ChatFolders />
+        <ChatFolders chatFolders={CHAT_FOLDERS as ChatFolder[]} />
         <ChatList chatSummeries={CHAT_SUMMERIES as ChatSummery[]} />
         <FloatingNewChat />
       </Stack>

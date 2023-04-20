@@ -1,16 +1,20 @@
 import Tabs from '@mui/joy/Tabs';
 import TabList from '@mui/joy/TabList';
 import Tab from '@mui/joy/Tab';
-import { useCallback, useRef } from 'react';
+import { useCallback } from 'react';
 
-export default function ChatFolders() {
+type ChatFolderProps = {
+  chatFolders: ChatFolder[];
+};
+
+export default function ChatFolders(props: ChatFolderProps) {
   //Make it scroll horizontally on mouse wheel
   const handleWheel = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.currentTarget.scrollLeft += e.deltaY;
   }, []);
   return (
-    <Tabs defaultValue={1} sx={{ backgroundColor: 'transparent' }}>
+    <Tabs defaultValue="all" sx={{ backgroundColor: 'transparent' }}>
       <TabList
         sx={{
           borderRadius: 0,
@@ -22,17 +26,12 @@ export default function ChatFolders() {
         }}
         onWheel={handleWheel}
       >
-        <Tab value={1}>Tab A</Tab>
-        <Tab value={2}>Tab B</Tab>
-        <Tab value={3}>Tab C</Tab>
-        <Tab value={4}>Tab D</Tab>
-        <Tab value={5}>Tab E</Tab>
-        <Tab value={6}>Tab F</Tab>
-        <Tab value={7}>Tab G</Tab>
-        <Tab value={8}>Tab H</Tab>
-        <Tab value={9}>Tab I</Tab>
-        <Tab value={10}>Tab J</Tab>
-        <Tab value={11}>Tab K</Tab>
+        <Tab value="all">All</Tab>
+        {props.chatFolders.map((chatFolder) => (
+          <Tab key={chatFolder.id} value={chatFolder.id}>
+            {chatFolder.name}
+          </Tab>
+        ))}
       </TabList>
     </Tabs>
   );
