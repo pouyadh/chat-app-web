@@ -17,6 +17,7 @@ export default function Left() {
         borderRight: '1px solid rgba(128,128,128,0.1)',
         position: 'relative',
         maxHeight: '100vh',
+        backgroundColor: ({ palette }) => palette.background.body,
       }}
     >
       <Stack sx={{ maxHeight: '100vh' }}>
