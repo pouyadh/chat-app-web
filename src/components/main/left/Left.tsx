@@ -24,7 +24,6 @@ export default function Left() {
       <Stack sx={{ maxHeight: '100vh' }}>
         <LinearProgress
           variant="plain"
-          color="info"
           thickness={3}
           value={loading ? undefined : 0}
         />

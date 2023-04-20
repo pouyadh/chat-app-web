@@ -32,7 +32,6 @@ export default function FloatingNewChat({
           borderRadius: '50%',
           padding: 2,
         }}
-        color="info"
         onClick={handleClick}
       >
         {open ? <CloseOutlinedIcon /> : <CreateOutlinedIcon />}

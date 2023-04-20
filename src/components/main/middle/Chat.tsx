@@ -14,7 +14,6 @@ export default function Chat() {
     <Stack>
       <LinearProgress
         variant="plain"
-        color="info"
         thickness={3}
         value={loading ? undefined : 0}
       />
