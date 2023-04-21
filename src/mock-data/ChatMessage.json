@@ -2,8 +2,21 @@
   {
     "id": "31",
     "type": "text",
-    "direction": "in",
     "text": "Hello",
+    "senderId": "41",
+    "createdAt": 1682032444675
+  },
+  {
+    "id": "32",
+    "type": "text",
+    "text": "Hi there",
+    "senderId": "43",
+    "createdAt": 1682032444675
+  },
+  {
+    "id": "33",
+    "type": "text",
+    "text": "I'm good, thanks",
     "senderId": "41",
     "createdAt": 1682032444675
   }
