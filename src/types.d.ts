@@ -19,7 +19,6 @@ type ChatFolder = {
 interface BaseChatMessage {
   id: DatabaseRecordID;
   type: 'text' | 'image-text' | 'image';
-  direction: 'in' | 'out';
   text?: string;
   imageUrl?: string;
   senderId: DatabaseRecordID;
