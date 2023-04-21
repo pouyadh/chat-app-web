@@ -1,0 +1,12 @@
+[
+  {
+    "id": "41",
+    "username": "johndoe",
+    "avatarURL": "https://api.multiavatar.com/johndoe.svg"
+  },
+  {
+    "id": "43",
+    "username": "janedoe",
+    "avatarURL": "https://api.multiavatar.com/janedoe.svg"
+  }
+]
