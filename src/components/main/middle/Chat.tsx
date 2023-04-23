@@ -1,25 +1,32 @@
 import {
   Avatar,
   IconButton,
+  Input,
   LinearProgress,
   Stack,
   Typography,
 } from '@mui/joy';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
+import SendIcon from '@mui/icons-material/Send';
+
 import Message from './Message';
 
 import CHAT_MESSAGES from 'mock-data/ChatMessage.json';
+import React, { useState } from 'react';
 
 export default function Chat() {
+  const [a, setA] = useState<string>('');
   const chatMessages = CHAT_MESSAGES as ChatMessage[];
   const loading = false;
   return (
-    <Stack>
+    <Stack height="100vh" justifyContent="flex-start">
       <LinearProgress
         variant="plain"
         thickness={3}
         value={loading ? undefined : 0}
+        sx={{ flexGrow: 0 }}
       />
       <Stack
         direction="row"
@@ -49,6 +56,21 @@ export default function Chat() {
         {chatMessages.map((chatMessage) => (
           <Message key={chatMessage.id} message={chatMessage} />
         ))}
+      </Stack>
+      <div style={{ flexGrow: 1 }}></div>
+      <Stack direction="row" gap={0.5} padding={0.5}>
+        <Input
+          startDecorator={
+            <IconButton variant="plain">
+              <SentimentSatisfiedAltOutlinedIcon />
+            </IconButton>
+          }
+          sx={{ flexGrow: 1 }}
+          placeholder="Message"
+        />
+        <IconButton variant="solid" color="primary">
+          <SendIcon sx={{ fontSize: 20 }} />
+        </IconButton>
       </Stack>
     </Stack>
   );
