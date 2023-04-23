@@ -1,23 +1,23 @@
 [
   {
-    "id": "31",
-    "type": "text",
+    "id": 31,
     "text": "Hello",
-    "senderId": "41",
-    "createdAt": 1682032444675
+    "senderId": 41,
+    "createdAt": 1682032444675,
+    "outgoingStatus": "seen"
   },
   {
-    "id": "32",
-    "type": "text",
+    "id": 32,
     "text": "Hi there",
-    "senderId": "43",
-    "createdAt": 1682032444675
+    "senderId": 43,
+    "createdAt": 1682032444675,
+    "outgoingStatus": "seen"
   },
   {
-    "id": "33",
-    "type": "text",
+    "id": 33,
     "text": "I'm good, thanks",
-    "senderId": "41",
-    "createdAt": 1682032444675
+    "senderId": 41,
+    "createdAt": 1682032444675,
+    "outgoingStatus": "sent"
   }
 ]
