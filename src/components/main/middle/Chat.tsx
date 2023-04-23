@@ -16,8 +16,12 @@ import Message from './Message';
 import CHAT_MESSAGES from 'mock-data/ChatMessage.json';
 import React, { useState } from 'react';
 
+import data from '@emoji-mart/data';
+import EmojiPicker from '@emoji-mart/react';
+import './Chat.css';
+
 export default function Chat() {
-  const [a, setA] = useState<string>('');
+  const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState<boolean>(false);
   const chatMessages = CHAT_MESSAGES as ChatMessage[];
   const loading = false;
   return (
@@ -61,7 +65,10 @@ export default function Chat() {
       <Stack direction="row" gap={0.5} padding={0.5}>
         <Input
           startDecorator={
-            <IconButton variant="plain">
+            <IconButton
+              variant="plain"
+              onClick={() => setIsEmojiPickerOpen(!isEmojiPickerOpen)}
+            >
               <SentimentSatisfiedAltOutlinedIcon />
             </IconButton>
           }
@@ -72,6 +79,18 @@ export default function Chat() {
           <SendIcon sx={{ fontSize: 20 }} />
         </IconButton>
       </Stack>
+      <div>
+        {isEmojiPickerOpen && (
+          <EmojiPicker
+            theme="auto"
+            data={data}
+            navPosition="none"
+            previewPosition="none"
+            searchPosition="none"
+            dynamicWidth={true}
+          />
+        )}
+      </div>
     </Stack>
   );
 }
