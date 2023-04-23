@@ -1,8 +1,7 @@
 import { CssBaseline, CssVarsProvider, GlobalStyles, Stack } from '@mui/joy';
-import Left from './components/main/left/Left';
-import Middle from './components/main/middle/Middle';
 import bgImageDark from 'assets/chat-bg-pattern-dark.png';
 import bgImageLight from 'assets/chat-bg-pattern-light.png';
+import Main from 'components/main/Main';
 
 function App() {
   return (
@@ -35,10 +34,7 @@ function App() {
           };
         }}
       />
-      <Stack direction="row" spacing={0} sx={{ height: '100vh' }}>
-        <Left />
-        <Middle />
-      </Stack>
+      <Main />
     </CssVarsProvider>
   );
 }
