@@ -7,8 +7,12 @@ import {
 } from '@mui/joy';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import Message from './Message';
+
+import CHAT_MESSAGES from 'mock-data/ChatMessage.json';
 
 export default function Chat() {
+  const chatMessages = CHAT_MESSAGES as ChatMessage[];
   const loading = false;
   return (
     <Stack>
@@ -40,6 +44,11 @@ export default function Chat() {
         <IconButton variant="plain" color="neutral">
           <SearchOutlinedIcon />
         </IconButton>
+      </Stack>
+      <Stack>
+        {chatMessages.map((chatMessage) => (
+          <Message key={chatMessage.id} message={chatMessage} />
+        ))}
       </Stack>
     </Stack>
   );
