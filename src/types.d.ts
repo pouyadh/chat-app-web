@@ -16,14 +16,17 @@ type ChatFolder = {
   chatIds: DatabaseRecordID[];
 };
 
-type MessageType = 'text' | 'image-text' | 'image';
-type OutgoingState = 'sending' | 'sent' | 'received' | 'seen';
+type OutgoingMessageStatus =
+  | 'sending'
+  | 'sent'
+  | 'received'
+  | 'seen'
+  | 'failed';
+
 interface ChatMessage {
   id: DatabaseRecordID;
-  type: MessageType;
-  text?: string;
-  imageUrl?: string;
+  text: string;
   senderId: DatabaseRecordID;
   createdAt: number;
-  outgoingState?: OutgoingState;
+  outgoingStatus: OutgoingMessageStatus;
 }
