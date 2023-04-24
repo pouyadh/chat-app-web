@@ -1,7 +1,13 @@
-import { CssBaseline, CssVarsProvider, GlobalStyles, Stack } from '@mui/joy';
+import {
+  CssBaseline,
+  CssVarsProvider,
+  GlobalStyles,
+  Stack,
+  Theme,
+} from '@mui/joy';
 import bgImageDark from 'assets/chat-bg-pattern-dark.png';
 import bgImageLight from 'assets/chat-bg-pattern-light.png';
-import Main from 'components/main/Main';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
@@ -34,7 +40,7 @@ function App() {
           };
         }}
       />
-      <Main />
+      <Outlet />
     </CssVarsProvider>
   );
 }
