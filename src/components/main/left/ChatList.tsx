@@ -41,7 +41,6 @@ export default function ChatList(props: ChatListProps) {
       }}
     >
       <List
-        aria-labelledby="ellipsis-list-demo"
         sx={{
           '--ListItemDecorator-size': '56px',
         }}
