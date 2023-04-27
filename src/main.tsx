@@ -9,6 +9,8 @@ import SignInForm from 'components/auth/SignInForm';
 import SignUpForm from 'components/auth/SignUpForm';
 import ForgotPasswordForm from 'components/auth/ForgotPasswordForm';
 import ResetPasswordForm from 'components/auth/ResetPasswordForm';
+import { Provider } from 'react-redux';
+import { store } from 'store/store';
 
 const router = createBrowserRouter([
   {
@@ -51,6 +53,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );

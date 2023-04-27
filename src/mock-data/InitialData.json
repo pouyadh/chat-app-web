@@ -1,0 +1,202 @@
+{
+  "profile": {
+    "id": 70,
+    "name": "pouya dehghani",
+    "avatarUrl": "https://api.multiavatar.com/pouya dehghani.svg",
+    "username": "pouyadh",
+    "email": "pouyadh.dev@gmail.com"
+  },
+  "chats": [
+    {
+      "id": 1,
+      "type": "channel",
+      "avatarUrl": "https://api.multiavatar.com/Binx Bond.svg",
+      "title": "Brunch this weekend?",
+      "messages": [
+        {
+          "id": 31,
+          "text": "Hello",
+          "senderId": 41,
+          "createdAt": 1682032444675,
+          "outgoingStatus": "seen"
+        },
+        {
+          "id": 32,
+          "text": "Hi there",
+          "senderId": 43,
+          "createdAt": 1682032444675,
+          "outgoingStatus": "seen"
+        },
+        {
+          "id": 33,
+          "text": "I&apos;ll be in your neighborhood doing errands this Tuesday.",
+          "senderId": 41,
+          "createdAt": 1682032444675,
+          "outgoingStatus": "sent"
+        }
+      ],
+      "unreadMessagesCount": 5
+    },
+    {
+      "id": 2,
+      "type": "channel",
+      "avatarUrl": "https://api.multiavatar.com/Binx BondA.svg",
+      "title": "Summer BBQ",
+      "messages": [
+        {
+          "id": 34,
+          "text": "Hello",
+          "senderId": 41,
+          "createdAt": 1682032444675,
+          "outgoingStatus": "seen"
+        },
+        {
+          "id": 35,
+          "text": "Hi there",
+          "senderId": 43,
+          "createdAt": 1682032444675,
+          "outgoingStatus": "seen"
+        },
+        {
+          "id": 36,
+          "text": "Wish I could come, but I&apos;m out of town this Friday.",
+          "senderId": 41,
+          "createdAt": 1682032444675,
+          "outgoingStatus": "sent"
+        }
+      ],
+      "unreadMessagesCount": 3
+    },
+    {
+      "id": 3,
+      "type": "person",
+      "avatarUrl": "https://api.multiavatar.com/Pouya Dehghani.svg",
+      "title": "Pouya Dehghani",
+      "messages": [],
+      "unreadMessagesCount": 5
+    },
+    {
+      "id": 4,
+      "type": "person",
+      "avatarUrl": "https://api.multiavatar.com/Ali Fatehi.svg",
+      "title": "Ali Fatehi",
+      "messages": [],
+      "unreadMessagesCount": 5
+    },
+    {
+      "id": 6,
+      "type": "person",
+      "avatarUrl": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+      "title": "Mohammad Sharifi",
+      "messages": [],
+      "unreadMessagesCount": 5
+    },
+    {
+      "id": 7,
+      "type": "person",
+      "avatarUrl": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+      "title": "Mohammad Sharifi",
+      "messages": [],
+      "unreadMessagesCount": 5
+    },
+    {
+      "id": 8,
+      "type": "person",
+      "avatarUrl": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+      "title": "Mohammad Sharifi",
+      "messages": [],
+      "unreadMessagesCount": 5
+    },
+    {
+      "id": 9,
+      "type": "person",
+      "avatarUrl": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+      "title": "Mohammad Sharifi",
+      "messages": [],
+      "unreadMessagesCount": 5
+    },
+    {
+      "id": 10,
+      "type": "person",
+      "avatarUrl": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+      "title": "Mohammad Sharifi",
+      "messages": [],
+      "unreadMessagesCount": 5
+    },
+    {
+      "id": 11,
+      "type": "person",
+      "avatarUrl": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+      "title": "Mohammad Sharifi",
+      "messages": [],
+      "unreadMessagesCount": 5
+    },
+    {
+      "id": 12,
+      "type": "person",
+      "avatarUrl": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+      "title": "Mohammad Sharifi",
+      "messages": [],
+      "unreadMessagesCount": 5
+    },
+    {
+      "id": 13,
+      "type": "person",
+      "avatarUrl": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+      "title": "Mohammad Sharifi",
+      "messages": [],
+      "unreadMessagesCount": 5
+    },
+    {
+      "id": 14,
+      "type": "person",
+      "avatarUrl": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+      "title": "Mohammad Sharifi",
+      "messages": [],
+      "unreadMessagesCount": 5
+    },
+    {
+      "id": 15,
+      "type": "person",
+      "avatarUrl": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+      "title": "Mohammad Sharifi",
+      "messages": [],
+      "unreadMessagesCount": 5
+    },
+    {
+      "id": 16,
+      "type": "person",
+      "avatarUrl": "https://api.multiavatar.com/Mohammad Sharifi.svg",
+      "title": "Mohammad Sharifi",
+      "messages": [],
+      "unreadMessagesCount": 5
+    }
+  ],
+  "chatFolders": [
+    {
+      "id": 21,
+      "name": "Proxy",
+      "chatIds": [1, 2, 5, 6]
+    },
+    {
+      "id": 22,
+      "name": "Uni",
+      "chatIds": [3, 7, 8, 9, 12]
+    }
+  ],
+  "profiles": [
+    {
+      "id": 41,
+      "name": "John Doe",
+      "username": "johndoe",
+      "avatarUrl": "https://api.multiavatar.com/johndoe.svg"
+    },
+    {
+      "id": 43,
+      "name": "Jane Doe",
+      "username": "janedoe",
+      "avatarUrl": "https://api.multiavatar.com/janedoe.svg"
+    }
+  ],
+  "contactIds": [21, 22]
+}

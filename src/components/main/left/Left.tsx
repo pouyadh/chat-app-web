@@ -6,9 +6,12 @@ import ChatList from './ChatList';
 import FloatingNewChat from './FloatingNewChat';
 import CHAT_SUMMERIES from 'mock-data/ChatSummery.json';
 import CHAT_FOLDERS from 'mock-data/ChatFolder.json';
+import { useAppSelector } from 'store/store';
+import { selectDataStatus } from 'store/mainSlice';
 
 export default function Left() {
-  const loading = false;
+  const dataStatus = useAppSelector(selectDataStatus);
+  const loading = dataStatus === 'loading';
   return (
     <Box
       sx={{
@@ -22,17 +25,13 @@ export default function Left() {
       }}
     >
       <Stack sx={{ maxHeight: '100vh' }}>
-        <LinearProgress
-          variant="plain"
-          thickness={3}
-          value={loading ? undefined : 0}
-        />
+        <LinearProgress variant="plain" thickness={3} value={loading ? undefined : 0} />
         <Stack direction="row" spacing={1} padding={1}>
           <MainMenu />
           <SearchInput />
         </Stack>
-        <ChatFolders chatFolders={CHAT_FOLDERS as ChatFolder[]} />
-        <ChatList chatSummeries={CHAT_SUMMERIES as ChatSummery[]} />
+        <ChatFolders />
+        <ChatList />
         <FloatingNewChat />
       </Stack>
     </Box>

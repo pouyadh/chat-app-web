@@ -1,15 +1,19 @@
-import {
-  CssBaseline,
-  CssVarsProvider,
-  GlobalStyles,
-  Stack,
-  Theme,
-} from '@mui/joy';
+import { CssBaseline, CssVarsProvider, GlobalStyles, Stack, Theme } from '@mui/joy';
 import bgImageDark from 'assets/chat-bg-pattern-dark.png';
 import bgImageLight from 'assets/chat-bg-pattern-light.png';
+import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
+import { fetchInitialData, selectDataStatus } from 'store/mainSlice';
+import { useAppDispatch, useAppSelector } from 'store/store';
 
 function App() {
+  const dataStatus = useAppSelector(selectDataStatus);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (dataStatus === 'idle') {
+      dispatch(fetchInitialData());
+    }
+  }, [dataStatus]);
   return (
     <CssVarsProvider defaultMode="system">
       <CssBaseline />
@@ -40,6 +44,7 @@ function App() {
           };
         }}
       />
+
       <Outlet />
     </CssVarsProvider>
   );
