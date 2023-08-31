@@ -2,6 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { RootState, store, useAppSelector } from './store';
 import { ChatTypeAndId } from './appSlice';
 import { DBDocId } from 'api/types';
+import { useMemo } from 'react';
 
 export const useUserData = () => useAppSelector((state) => state.app.data.user);
 export const useFolders = () => useAppSelector((state) => state.app.data.user?.folders || []);
@@ -98,11 +99,22 @@ export const useChatListItemData = (chat: ChatTypeAndId) =>
         const chatData = state.app.data.user?.privateChats.find((pv) => pv.user === chat.id);
         if (!chatData) return null;
         const userProfile = state.app.data.userProfileMap[chatData.user];
+        const lastMessage = chatData.messages.at(-1);
+        const lastMessageTime = lastMessage?.sentAt;
+        const lastMessageTimeText = useMemo(() => {
+          if (lastMessageTime) {
+            const d = new Date(lastMessageTime);
+            return `${d.getHours()}:${d.getMinutes()}`;
+          } else {
+            return '';
+          }
+        }, [lastMessageTime]);
         const lastMessageContentText =
-          state.app.data.contentMap[chatData.messages.at(-1)?.content || '']?.text || '';
+          state.app.data.contentMap[lastMessage?.content || '']?.text || '';
         return {
           avatarUrl: userProfile?.avatarUrl,
           title: userProfile?.name,
+          time: lastMessageTimeText,
           subtitle: lastMessageContentText,
           subtitlePrefix: '',
         };
