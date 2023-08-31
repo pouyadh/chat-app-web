@@ -1,22 +1,18 @@
-import {
-  IconButton,
-  ListDivider,
-  ListItemDecorator,
-  Menu,
-  MenuItem,
-  Switch,
-  Typography,
-  useColorScheme,
-} from '@mui/joy';
+import { IconButton, Menu, MenuItem, Switch, Typography, useColorScheme } from '@mui/material';
 import React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ModeNightOutlinedIcon from '@mui/icons-material/ModeNightOutlined';
+import { useSelectedTheme } from 'store/selector';
+import { useAppDispatch } from 'store/store';
+import { setTheme, showContactListModal } from 'store/uiSlice';
+import { signout } from 'store/appSlice';
 
 export default function MainMenu() {
+  const selectedTheme = useSelectedTheme();
+  const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { mode, setMode } = useColorScheme();
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -25,7 +21,7 @@ export default function MainMenu() {
     setAnchorEl(null);
   };
 
-  const toggleNightMode = () => setMode(mode === 'dark' ? 'light' : 'dark');
+  const toggleNightMode = () => dispatch(setTheme(selectedTheme === 'dark' ? 'light' : 'dark'));
 
   return (
     <div>
@@ -34,8 +30,7 @@ export default function MainMenu() {
         aria-controls={open ? 'MainMenu-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        variant="plain"
-        color="neutral"
+        color="default"
         onClick={handleClick}
       >
         <MenuIcon />
@@ -46,31 +41,37 @@ export default function MainMenu() {
         open={open}
         onClose={handleClose}
         aria-labelledby="MainMenu-button"
-        placement="bottom-end"
       >
         <MenuItem onClick={handleClose}>
-          <ListItemDecorator>
-            <BookmarkBorderOutlinedIcon />
-          </ListItemDecorator>{' '}
+          <BookmarkBorderOutlinedIcon />
           Saved Messages
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemDecorator>
-            <PersonOutlineOutlinedIcon />
-          </ListItemDecorator>{' '}
+        <MenuItem
+          onClick={() => {
+            dispatch(showContactListModal());
+            handleClose();
+          }}
+        >
+          <PersonOutlineOutlinedIcon />
           Contacts
         </MenuItem>
         <MenuItem onClick={toggleNightMode}>
-          <ListItemDecorator>
-            <ModeNightOutlinedIcon />
-          </ListItemDecorator>{' '}
+          <ModeNightOutlinedIcon />
           Night Mode
-          <ListItemDecorator />
-          <Switch checked={mode === 'dark'} />
+          <Switch checked={selectedTheme === 'dark'} />
         </MenuItem>
-        <ListDivider />
+        <MenuItem
+          onClick={() => {
+            dispatch(signout());
+            handleClose();
+          }}
+        >
+          <PersonOutlineOutlinedIcon />
+          Signout
+        </MenuItem>
+
         <MenuItem disabled sx={{ justifyContent: 'center' }}>
-          <Typography level="body2" textColor="grey">
+          <Typography variant="body2" color="grey">
             ChatApp @pouyadh
           </Typography>
         </MenuItem>

@@ -1,17 +1,14 @@
-import { Box, IconButton, LinearProgress, Stack } from '@mui/joy';
+import { Box, LinearProgress, Stack } from '@mui/material';
 import MainMenu from './MainMenu';
 import SearchInput from './SearchInput';
-import ChatFolders from './ChatFolders';
-import ChatList from './ChatList';
-import FloatingNewChat from './FloatingNewChat';
-import CHAT_SUMMERIES from 'mock-data/ChatSummery.json';
-import CHAT_FOLDERS from 'mock-data/ChatFolder.json';
-import { useAppSelector } from 'store/store';
-import { selectDataStatus } from 'store/mainSlice';
+import ChatFolders from './ChatList/ChatFolders';
+import FloatingNewChat from './ChatList/FloatingNewChat';
+import { useSocketStatus } from 'store/selector';
+import ChatList from './ChatList/ChatList';
 
 export default function Left() {
-  const dataStatus = useAppSelector(selectDataStatus);
-  const loading = dataStatus === 'loading';
+  const socketStatus = useSocketStatus();
+  const loading = socketStatus !== 'connected';
   return (
     <Box
       sx={{
@@ -21,11 +18,15 @@ export default function Left() {
         borderRight: '1px solid rgba(128,128,128,0.1)',
         position: 'relative',
         maxHeight: '100vh',
-        backgroundColor: ({ palette }) => palette.background.body,
+        backgroundColor: ({ palette }) => palette.background.default,
       }}
     >
       <Stack sx={{ maxHeight: '100vh' }}>
-        <LinearProgress variant="plain" thickness={3} value={loading ? undefined : 0} />
+        <LinearProgress
+          value={0}
+          variant={loading ? 'indeterminate' : 'determinate'}
+          sx={{ height: '1px' }}
+        />
         <Stack direction="row" spacing={1} padding={1}>
           <MainMenu />
           <SearchInput />

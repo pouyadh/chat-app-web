@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import '@fontsource/public-sans';
 import App from './App';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, useRouteError } from 'react-router-dom';
 import Auth from 'components/auth/Auth';
-import Main from 'components/main/Main';
+//import Main from 'components/main/Main';
 import SignInForm from 'components/auth/SignInForm';
 import SignUpForm from 'components/auth/SignUpForm';
 import ForgotPasswordForm from 'components/auth/ForgotPasswordForm';
 import ResetPasswordForm from 'components/auth/ResetPasswordForm';
 import { Provider } from 'react-redux';
 import { store } from 'store/store';
+import Main from 'components/main/Main';
+import Err from 'components/common/Err';
 
 const router = createBrowserRouter([
   {
@@ -19,15 +20,18 @@ const router = createBrowserRouter([
     children: [
       {
         element: <Main />,
+        errorElement: <Err />,
         index: true,
       },
       {
         path: '/*',
         element: <Main />,
+        errorElement: <Err />,
       },
       {
         path: '/auth',
         element: <Auth />,
+        errorElement: <Err />,
         children: [
           {
             path: '/auth/signin',

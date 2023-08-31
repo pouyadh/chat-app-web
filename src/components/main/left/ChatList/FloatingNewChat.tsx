@@ -1,20 +1,19 @@
-import IconButton from '@mui/joy/IconButton';
+import IconButton from '@mui/material/IconButton';
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import React from 'react';
-import { ListItemDecorator, Menu, MenuItem } from '@mui/joy';
+import { Menu, MenuItem } from '@mui/material';
 
 import CampaignOutlinedIcon from '@mui/icons-material/CampaignOutlined';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
+import { useAppDispatch } from 'store/store';
+import { showContactListModal } from 'store/uiSlice';
 
-export default function FloatingNewChat({
-  children,
-}: {
-  children?: React.ReactNode;
-}) {
+export default function FloatingNewChat({ children }: { children?: React.ReactNode }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const dispatch = useAppDispatch();
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -31,6 +30,7 @@ export default function FloatingNewChat({
           bottom: '24px',
           borderRadius: '50%',
           padding: 2,
+          color: ({ palette }) => palette.primary.dark,
         }}
         onClick={handleClick}
       >
@@ -42,24 +42,26 @@ export default function FloatingNewChat({
         open={open}
         onClose={handleClose}
         aria-labelledby="NewChatMenu-button"
-        placement="top-start"
+        transformOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
       >
         <MenuItem onClick={handleClose}>
-          <ListItemDecorator>
-            <CampaignOutlinedIcon />
-          </ListItemDecorator>{' '}
+          <CampaignOutlinedIcon />
           New channel
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <ListItemDecorator>
-            <GroupOutlinedIcon />
-          </ListItemDecorator>{' '}
+          <GroupOutlinedIcon />
           New Group
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemDecorator>
-            <Person2OutlinedIcon />
-          </ListItemDecorator>{' '}
+        <MenuItem
+          onClick={() => {
+            dispatch(showContactListModal());
+            handleClose();
+          }}
+        >
+          <Person2OutlinedIcon />
           New message
         </MenuItem>
       </Menu>

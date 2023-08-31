@@ -1,4 +1,4 @@
-import { IconButton, Input } from '@mui/joy';
+import { IconButton, Input } from '@mui/material';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { KeyboardEventHandler, useCallback, useRef, useState } from 'react';
@@ -15,12 +15,11 @@ export default function SearchInput() {
   };
   return (
     <Input
-      variant="plain"
       placeholder="Search"
-      startDecorator={<SearchOutlinedIcon />}
-      endDecorator={
+      startAdornment={<SearchOutlinedIcon />}
+      endAdornment={
         search ? (
-          <IconButton color="neutral" onClick={() => cancelSearch()}>
+          <IconButton color="default" onClick={() => cancelSearch()}>
             <CloseOutlinedIcon />
           </IconButton>
         ) : undefined
@@ -29,11 +28,7 @@ export default function SearchInput() {
       value={search}
       onChange={(e) => setSearch(e.target.value)}
       onKeyDown={handleKeyDown}
-      slotProps={{
-        input: {
-          ref: inputRef,
-        },
-      }}
+      ref={inputRef}
     />
   );
 }

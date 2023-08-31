@@ -1,7 +1,9 @@
-import { Box, Container, Grid, Stack, Typography } from '@mui/joy';
+import { Box, Container, Stack, Typography } from '@mui/material';
+import userRedirectIfUser from 'hooks/userRedirectIfUser';
 import { Outlet } from 'react-router-dom';
 
 export default function Auth() {
+  userRedirectIfUser('/');
   return (
     <Container maxWidth="sm">
       <Stack height="100vh">
@@ -11,7 +13,7 @@ export default function Auth() {
         </Box>
         <div style={{ flexGrow: 1 }}></div>
         <Box component="footer" sx={{ py: 3 }}>
-          <Typography level="body3" textAlign="center">
+          <Typography variant="body2" textAlign="center">
             © Pouyadh {new Date().getFullYear()}
           </Typography>
         </Box>

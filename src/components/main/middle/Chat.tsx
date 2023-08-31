@@ -1,91 +1,65 @@
-import { Avatar, IconButton, Input, LinearProgress, Stack, Typography } from '@mui/joy';
+import { Avatar, IconButton, Input, LinearProgress, Stack, Typography } from '@mui/material';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
-import SendIcon from '@mui/icons-material/Send';
 
 import Message from './Message';
+import { useActiveChatData } from 'store/selector';
 
-import { useState } from 'react';
-
-import data from '@emoji-mart/data';
-import EmojiPicker from '@emoji-mart/react';
-import './Chat.css';
-import { useAppSelector } from 'store/store';
+import MessageInput from './MessageInput';
+import { TooltipErrorBoundery } from 'components/common/Err';
+import { useEffect, useRef } from 'react';
 
 export default function Chat() {
-  const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState<boolean>(false);
-  const chat = useAppSelector((state) => {
-    return state.main.data?.chats.find((chat) => chat.id === state.main.selectedChatId);
-  });
-  //const chatMessages = CHAT_MESSAGES as ChatMessage[];
-  const loading = false;
-  if (!chat) return <></>;
+  const chatData = useActiveChatData();
+  const messageListRef = useRef<HTMLDivElement>(null);
+
+  if (!chatData) return <></>;
+  const { loading, type, title, avatarUrl, messages } = chatData;
+  useEffect(() => {
+    messageListRef.current?.scrollTo(0, messageListRef.current.scrollHeight);
+  }, [messages?.length]);
+
   return (
     <Stack height="100vh" justifyContent="flex-start">
       <LinearProgress
-        variant="plain"
-        thickness={3}
         value={loading ? undefined : 0}
-        sx={{ flexGrow: 0 }}
+        variant={loading ? 'indeterminate' : 'determinate'}
+        sx={{ flexGrow: 0, height: '1px' }}
       />
       <Stack
         direction="row"
         sx={{
-          backgroundColor: ({ palette }) => palette.background.body,
+          backgroundColor: ({ palette }) => palette.background.default,
         }}
         gap={1}
       >
-        <IconButton variant="plain" color="neutral">
+        <IconButton>
           <ArrowBackOutlinedIcon />
         </IconButton>
-        <IconButton variant="plain" color="neutral" sx={{ padding: 1 }}>
-          <Avatar size="lg" src={chat.avatarUrl} alt={chat.title} />
+        <IconButton sx={{ padding: 1 }}>
+          <Avatar sizes="24px" src={avatarUrl} alt={title} />
         </IconButton>
         <Stack justifyContent="center" minWidth={0} flexShrink={3}>
-          <Typography noWrap>{chat.title}</Typography>
-          <Typography level="body2" noWrap>
+          <Typography noWrap>{title}</Typography>
+          <Typography variant="body2" noWrap>
             last seen recently
           </Typography>
         </Stack>
         <div style={{ flexGrow: 1 }}></div>
-        <IconButton variant="plain" color="neutral">
+        <IconButton>
           <SearchOutlinedIcon />
         </IconButton>
       </Stack>
-      <Stack>
-        {chat &&
-          chat.messages.map((chatMessage) => (
-            <Message key={chatMessage.id} message={chatMessage} />
+      <Stack sx={{ overflowY: 'scroll' }} flexGrow="1" ref={messageListRef}>
+        <div style={{ flexGrow: 1 }}></div>
+        {!loading &&
+          messages?.map((msg) => (
+            <TooltipErrorBoundery key={msg._id}>
+              <Message message={msg} />
+            </TooltipErrorBoundery>
           ))}
       </Stack>
-      <div style={{ flexGrow: 1 }}></div>
-      <Stack direction="row" gap={0.5} padding={0.5}>
-        <Input
-          startDecorator={
-            <IconButton variant="plain" onClick={() => setIsEmojiPickerOpen(!isEmojiPickerOpen)}>
-              <SentimentSatisfiedAltOutlinedIcon />
-            </IconButton>
-          }
-          sx={{ flexGrow: 1 }}
-          placeholder="Message"
-        />
-        <IconButton variant="solid" color="primary">
-          <SendIcon sx={{ fontSize: 20 }} />
-        </IconButton>
-      </Stack>
-      <div>
-        {isEmojiPickerOpen && (
-          <EmojiPicker
-            theme="auto"
-            data={data}
-            navPosition="none"
-            previewPosition="none"
-            searchPosition="none"
-            dynamicWidth={true}
-          />
-        )}
-      </div>
+      <MessageInput />
     </Stack>
   );
 }

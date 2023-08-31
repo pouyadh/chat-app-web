@@ -1,52 +1,15 @@
-import { CssBaseline, CssVarsProvider, GlobalStyles, Stack, Theme } from '@mui/joy';
-import bgImageDark from 'assets/chat-bg-pattern-dark.png';
-import bgImageLight from 'assets/chat-bg-pattern-light.png';
-import { useEffect } from 'react';
+import * as themes from 'theme';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import { fetchInitialData, selectDataStatus } from 'store/mainSlice';
-import { useAppDispatch, useAppSelector } from 'store/store';
+import { useSelectedTheme } from 'store/selector';
 
 function App() {
-  const dataStatus = useAppSelector(selectDataStatus);
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (dataStatus === 'idle') {
-      dispatch(fetchInitialData());
-    }
-  }, [dataStatus]);
+  const selectedTheme = useSelectedTheme();
   return (
-    <CssVarsProvider defaultMode="system">
+    <ThemeProvider theme={themes[selectedTheme]}>
       <CssBaseline />
-      <GlobalStyles
-        styles={({ palette }) => {
-          const isDark = palette.colorScheme === 'dark';
-          return {
-            //scrollbar webkit
-            '*::-webkit-scrollbar': {
-              width: '5px',
-            },
-            '*::-webkit-scrollbar-track': {
-              backgroundColor: 'transparent',
-            },
-            '*::-webkit-scrollbar-thumb': {
-              backgroundColor: 'rgba(128,128,128,0.3)',
-              borderRadius: '10px',
-            },
-            //scrollbar firefox
-            '*': {
-              scrollbarWidth: 'thin',
-              scrollbarColor: '#1e1e1e transparent',
-            },
-            body: {
-              backgroundImage: `url(${isDark ? bgImageDark : bgImageLight})`,
-              backgroundSize: 'contain',
-            },
-          };
-        }}
-      />
-
       <Outlet />
-    </CssVarsProvider>
+    </ThemeProvider>
   );
 }
 
