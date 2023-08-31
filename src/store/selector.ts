@@ -99,6 +99,11 @@ export const useChatListItemData = (chat: ChatTypeAndId) =>
         const chatData = state.app.data.user?.privateChats.find((pv) => pv.user === chat.id);
         if (!chatData) return null;
         const userProfile = state.app.data.userProfileMap[chatData.user];
+        const thisUserId = state.app.data.user?._id;
+        const unreadMessagesCount = chatData.messages.reduce(
+          (c, m) => (thisUserId !== m.sender && m.status !== 'seen' ? c + 1 : c),
+          0
+        );
         const lastMessage = chatData.messages.at(-1);
         const lastMessageTime = lastMessage?.sentAt;
         const lastMessageTimeText = useMemo(() => {
@@ -115,6 +120,7 @@ export const useChatListItemData = (chat: ChatTypeAndId) =>
           avatarUrl: userProfile?.avatarUrl,
           title: userProfile?.name,
           time: lastMessageTimeText,
+          badge: unreadMessagesCount,
           subtitle: lastMessageContentText,
           subtitlePrefix: '',
         };
