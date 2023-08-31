@@ -112,7 +112,7 @@ function ChatItem(props: { chat: ChatListItem }) {
         <ListItemText
           primary={
             <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <span>{title || ''}</span>
+              <span>{title || 'ㅤ'}</span>
               <Typography variant="caption" color="gray">
                 Time
               </Typography>
