@@ -98,7 +98,7 @@ function ChatItem(props: { chat: ChatListItem }) {
   const data = useChatListItemData(props.chat);
 
   if (data) {
-    const { avatarUrl, title, subtitlePrefix, subtitle } = data;
+    const { avatarUrl, title, subtitlePrefix, subtitle, time } = data;
     return (
       <ListItemButton
         alignItems="flex-start"
@@ -114,7 +114,7 @@ function ChatItem(props: { chat: ChatListItem }) {
             <Stack direction="row" justifyContent="space-between" alignItems="center">
               <span>{title || 'ㅤ'}</span>
               <Typography variant="caption" color="gray">
-                Time
+                {time || ''}
               </Typography>
             </Stack>
           }
