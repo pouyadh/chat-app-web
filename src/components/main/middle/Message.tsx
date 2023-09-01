@@ -1,67 +1,75 @@
 import { Box, Stack, SxProps, Typography } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { IUser, MessageStatus } from 'api/types';
 import { useContent, useUserData } from 'store/selector';
-import ReactJson from 'react-json-view';
 
 type MessageProps = {
   message: IUser['privateChats'][number]['messages'][number];
+  listRef: React.RefObject<HTMLDivElement | HTMLElement>;
   children?: React.ReactNode;
 };
 
-export default function Message({ message }: MessageProps) {
+export default function Message({ message, listRef }: MessageProps) {
   const { sender: senderId, _id: messageId, status, content } = message;
+  const ref = useRef<HTMLDivElement>(null);
   const userId = useUserData()?._id;
   const contentData = useContent(content);
   const isOwn = senderId === userId;
+  const handleSeen = () => {
+    console.log(contentData.text, ' -> seen');
+  };
+  useEffect(() => {
+    const observerCB: IntersectionObserverCallback = ([entery]) => {
+      const listClientHeight = listRef.current?.clientHeight;
+      if (entery.isIntersecting && listClientHeight) {
+        if (entery.intersectionRect.top / listClientHeight > 0.5) handleSeen();
+      }
+    };
+    const observer = new IntersectionObserver(observerCB, { root: listRef.current });
+    if (ref.current && !isOwn && status !== 'seen') {
+      observer.observe(ref.current);
+    } else {
+      observer.disconnect();
+    }
+    return () => {
+      observer.disconnect();
+    };
+  }, [isOwn, status, ref.current]);
   return (
-    <>
-      {/* <ReactJson
-        src={{
-          message,
-          contentData,
-          isOwn,
-        }}
-        displayDataTypes={false}
-        name="msg"
-        theme="google"
-        collapsed={true}
-      /> */}
-
-      <Stack
-        direction="row"
-        justifyContent={isOwn ? 'flex-end' : 'flex-start'}
-        sx={{
-          padding: 1,
-        }}
-      >
-        <Box>
-          <Box
-            sx={{
-              backgroundColor: ({ palette }) =>
-                isOwn ? palette.primary.dark : palette.primary.contrastText,
-              borderRadius: 1.5,
-            }}
-            paddingY={0.3}
-            paddingX={0.8}
-          >
-            {contentData?.text && renderText(contentData.text)}
-          </Box>
-          <Stack
-            direction="row"
-            justifyContent={isOwn ? 'flex-end' : 'flex-start'}
-            alignItems="center"
-          >
-            <Typography variant="caption" lineHeight={1} marginTop={0.3}>
-              {message.sentAt && renderMessageTime(message.sentAt)}{' '}
-              {isOwn && renderOutGoingMessageStatus(status)}
-            </Typography>
-          </Stack>
+    <Stack
+      direction="row"
+      justifyContent={isOwn ? 'flex-end' : 'flex-start'}
+      sx={{
+        padding: 1,
+      }}
+      ref={ref}
+    >
+      <Box>
+        <Box
+          sx={{
+            backgroundColor: ({ palette }) =>
+              isOwn ? palette.primary.dark : palette.primary.contrastText,
+            borderRadius: 1.5,
+          }}
+          paddingY={0.3}
+          paddingX={0.8}
+        >
+          {contentData?.text && renderText(contentData.text)}
         </Box>
-      </Stack>
-    </>
+        <Stack
+          direction="row"
+          justifyContent={isOwn ? 'flex-end' : 'flex-start'}
+          alignItems="center"
+        >
+          <Typography variant="caption" lineHeight={1} marginTop={0.3}>
+            {message.sentAt && renderMessageTime(message.sentAt)}{' '}
+            {isOwn && renderOutGoingMessageStatus(status)}
+          </Typography>
+        </Stack>
+      </Box>
+    </Stack>
   );
 }
 
