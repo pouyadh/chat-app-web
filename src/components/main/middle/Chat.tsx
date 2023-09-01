@@ -7,17 +7,17 @@ import { useActiveChatData } from 'store/selector';
 
 import MessageInput from './MessageInput';
 import { TooltipErrorBoundery } from 'components/common/Err';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 
 export default function Chat() {
   const chatData = useActiveChatData();
   const messageListRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    messageListRef.current?.scrollTo(0, messageListRef.current.scrollHeight);
+  }, [chatData?.messages?.length]);
 
   if (!chatData) return <></>;
   const { loading, type, title, avatarUrl, messages } = chatData;
-  useEffect(() => {
-    messageListRef.current?.scrollTo(0, messageListRef.current.scrollHeight);
-  }, [messages?.length]);
 
   return (
     <Stack height="100vh" justifyContent="flex-start">
@@ -55,7 +55,7 @@ export default function Chat() {
         {!loading &&
           messages?.map((msg) => (
             <TooltipErrorBoundery key={msg._id}>
-              <Message message={msg} />
+              <Message message={msg} listRef={messageListRef} />
             </TooltipErrorBoundery>
           ))}
       </Stack>
