@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { RootState, store, useAppSelector } from './store';
 import { ChatTypeAndId } from './appSlice';
-import { DBDocId } from 'api/types';
+import { DBDocId, IMessage } from 'api/types';
 import { useMemo } from 'react';
 
 export const useUserData = () => useAppSelector((state) => state.app.data.user);
@@ -55,11 +55,19 @@ export const useActiveChatData = () =>
             messages: pv?.messages || [],
           };
         case 'group':
-          return null;
+          return {
+            type: activeChat.type,
+            title: '',
+            avatarUrl: '',
+            messages: [] as IMessage[],
+          };
         case 'channel':
-          return null;
-        default:
-          return null;
+          return {
+            type: activeChat.type,
+            title: '',
+            avatarUrl: '',
+            messages: [] as IMessage[],
+          };
       }
     },
     (a, b) => a?.title === b?.title && a?.messages === b?.messages && a?.avatarUrl === b?.avatarUrl
