@@ -108,6 +108,25 @@ const appSlice = createSlice({
         }
       }
     },
+    markMessageAsSeen(state, action: PayloadAction<{ chat: ChatTypeAndId; messageId: DBDocId }>) {
+      const { type: chatType, id: chatId } = action.payload.chat;
+      const { messageId } = action.payload;
+      switch (chatType) {
+        case 'user':
+          const pv = state.data.user?.privateChats.find((pv) => pv.user === chatId);
+          if (pv) {
+            const msg = pv.messages.find((msg) => msg._id === messageId);
+            if (msg) {
+              msg.status = 'seen';
+            }
+          }
+          break;
+        case 'group':
+          break;
+        case 'channel':
+          break;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -153,6 +172,7 @@ export const {
   setSocketStatus,
   clearUser,
   addMessageToPrivateChat,
+  markMessageAsSeen,
 } = appSlice.actions;
 
 export default appSlice;
