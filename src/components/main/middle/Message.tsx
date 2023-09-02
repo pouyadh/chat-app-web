@@ -3,7 +3,9 @@ import DoneIcon from '@mui/icons-material/Done';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import { useEffect, useMemo, useRef } from 'react';
 import { IUser, MessageStatus } from 'api/types';
-import { useContent, useUserData } from 'store/selector';
+import { useActiveChat, useContent, useUserData } from 'store/selector';
+import { reportMessageAsSeen } from 'store/appSlice';
+import { useAppDispatch } from 'store/store';
 
 type MessageProps = {
   message: IUser['privateChats'][number]['messages'][number];
@@ -17,8 +19,10 @@ export default function Message({ message, listRef }: MessageProps) {
   const userId = useUserData()?._id;
   const contentData = useContent(content);
   const isOwn = senderId === userId;
+  const dispatch = useAppDispatch();
+  const chat = useActiveChat();
   const handleSeen = () => {
-    console.log(contentData.text, ' -> seen');
+    if (chat) dispatch(reportMessageAsSeen({ chat, messageId }));
   };
   useEffect(() => {
     const observerCB: IntersectionObserverCallback = ([entery]) => {
