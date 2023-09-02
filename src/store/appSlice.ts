@@ -250,17 +250,23 @@ export const updateData = createAsyncThunk('data/update-data', async (_, thunkAp
     ...state.app.data.user.contacts.map((c) => c.user),
     ...state.app.data.user.privateChats.map((pv) => pv.user),
   ]);
-  const publicProfiles = await socket.getPublicProfiles({
-    userIds: [...userIdsToGetTheirProfiles],
-  });
+  let publicProfiles = [] as UserPublicProfile[];
+  if (userIdsToGetTheirProfiles.size > 0) {
+    publicProfiles = await socket.getPublicProfiles({
+      userIds: [...userIdsToGetTheirProfiles],
+    });
+  }
   const contentIdsToGetTheirContents = new Set([
     ...state.app.data.user.privateChats
       .map((pv) => pv.messages.map((msg) => msg.content))
       .reduce((all, cIds) => all.concat(cIds), []),
   ]);
-  const contents = await socket.getContents({
-    contentIds: [...contentIdsToGetTheirContents],
-  });
+  let contents = [] as IContent[];
+  if (contentIdsToGetTheirContents.size > 0) {
+    contents = await socket.getContents({
+      contentIds: [...contentIdsToGetTheirContents],
+    });
+  }
   return {
     publicProfiles,
     contents,
