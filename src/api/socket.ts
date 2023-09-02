@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
-import { clearUser, getUserData, setSocketStatus } from 'store/appSlice';
+import { ChatTypeAndId, clearUser, getUserData, setSocketStatus } from 'store/appSlice';
 import { DBDocId, IContent, IMessage, IUser, UserPublicProfile } from './types';
 import { dispatch } from 'store/store';
 import { updateData, rpcActions } from 'store/appSlice';
@@ -100,9 +100,16 @@ export default {
       arg: form,
     });
   },
+  async markMessageAsSeen(form: { chat: ChatTypeAndId; messageId: DBDocId }) {
+    return socketRequest('UserService', {
+      method: 'markMessageAsSeen',
+      arg: form,
+    });
+  },
   async createGroup(form: { title: string; avatarUrl: string; members: string[] }) {
     return socketRequest('group-chat/create-group', form);
   },
+
   groupChat(groupChatId: DBDocId) {
     return {
       base(ev: string, data: object) {
