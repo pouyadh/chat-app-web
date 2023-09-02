@@ -303,4 +303,5 @@ export const reportMessageAsSeen = createAsyncThunk(
 
 export const rpcActions = {
   addMessageToPrivateChat,
+  markMessageAsSeen,
 };
