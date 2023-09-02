@@ -13,7 +13,7 @@ export default function () {
   const handleSend = () => {
     dispatch(sendMessage());
     dispatch(setMessageInputText(''));
-    setIsEmojiPickerOpen(false);
+    dispatch(setIsEmojiPickerOpen(false));
   };
   return (
     <>
