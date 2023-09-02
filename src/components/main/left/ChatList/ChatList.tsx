@@ -6,6 +6,7 @@ import {
   Badge,
   ListItemAvatar,
   ListItemButton,
+  ListItemButtonProps,
   ListItemText,
   Menu,
   MenuItem,
@@ -17,29 +18,34 @@ import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 import MarkChatReadOutlinedIcon from '@mui/icons-material/MarkChatReadOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import { dispatch, useAppDispatch, useAppSelector } from 'store/store';
+import { useAppDispatch } from 'store/store';
 import { useChatList, useChatListItemData } from 'store/selector';
 import { ChatListItem, ChatTypeAndId, reportMessageAsSeen, setActiveChat } from 'store/appSlice';
 
 export default function ChatList() {
   const chatList = useChatList();
-  const dispatch = useAppDispatch();
+  const [contextMenu, setContextMenu] = React.useState({
+    anchorEl: null as HTMLElement | null,
+    chat: { type: 'user', id: '' } as ChatTypeAndId,
+  });
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  let deleteMenuText = 'Delete';
-  if (open) {
-    const chatType = anchorEl?.getAttribute('data-chat-type');
-    if (chatType !== 'person') {
-      deleteMenuText = `Leave ${chatType}`;
-    }
-  }
-  const handleChatContextMenu = (e: React.MouseEvent<HTMLLIElement>) => {
+  const handleChatContextMenu: React.MouseEventHandler<HTMLElement> = (e) => {
     e.preventDefault();
-    setAnchorEl(e.currentTarget);
+    const anchorEl = e.currentTarget;
+    const chat = {
+      id: anchorEl?.getAttribute('data-chat-id'),
+      type: anchorEl?.getAttribute('data-chat-type'),
+    } as ChatTypeAndId;
+    setContextMenu({
+      anchorEl,
+      chat,
+    });
   };
   const handleClose = () => {
-    setAnchorEl(null);
+    setContextMenu((state) => ({
+      ...state,
+      anchorEl: null,
+    }));
   };
 
   return (
@@ -49,32 +55,32 @@ export default function ChatList() {
       }}
     >
       <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-        {chatList && chatList.map((chat) => <ChatItem key={chat.id} chat={chat} />)}
+        {chatList &&
+          chatList.map((chat) => (
+            <ChatItem
+              key={chat.id}
+              chat={chat}
+              onContextMenu={handleChatContextMenu}
+              data-chat-type={chat.type}
+              data-chat-id={chat.id}
+            />
+          ))}
       </List>
-      <Menu id="ChatContextMenu" anchorEl={anchorEl} open={open} onClose={handleClose}>
-        <MenuItem onClick={handleClose}>
-          <OpenInNewOutlinedIcon />
-          Open in new tab
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <FolderOutlinedIcon />
-          Add to folder
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <MarkChatReadOutlinedIcon />
-          Mark as read
-        </MenuItem>
-        <MenuItem onClick={handleClose} color="danger">
-          <DeleteOutlinedIcon />
-          {deleteMenuText}
-        </MenuItem>
-      </Menu>
+      <ChatContextMenu
+        id="ChatContextMenu"
+        open={!!contextMenu.anchorEl}
+        anchorEl={contextMenu.anchorEl}
+        chat={contextMenu.chat}
+        onClose={handleClose}
+        onItemSelect={handleClose}
+      />
     </div>
   );
 }
 
-function ChatItem(props: { chat: ChatListItem }) {
-  const data = useChatListItemData(props.chat);
+function ChatItem({ chat, ...props }: { chat: ChatListItem } & ListItemButtonProps) {
+  const data = useChatListItemData(chat);
+  const dispatch = useAppDispatch();
 
   if (data) {
     const { avatarUrl, title, subtitlePrefix, subtitle, time, badge } = data;
@@ -82,8 +88,9 @@ function ChatItem(props: { chat: ChatListItem }) {
       <ListItemButton
         alignItems="flex-start"
         onClick={() => {
-          dispatch(setActiveChat(props.chat));
+          dispatch(setActiveChat(chat));
         }}
+        {...props}
       >
         <ListItemAvatar>
           <Avatar alt={title || ''} src={avatarUrl || ''} />
