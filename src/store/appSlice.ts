@@ -291,6 +291,16 @@ export const sendMessage = createAsyncThunk('chat/send-message', async (_, thunk
   }
 });
 
+export const reportMessageAsSeen = createAsyncThunk(
+  'chat/mark-message-as-seen',
+  async ({ chat, messageId }: { chat: ChatTypeAndId; messageId: DBDocId }, thunkApi) => {
+    const state = thunkApi.getState() as RootState;
+    await socket.markMessageAsSeen({ chat, messageId });
+    thunkApi.dispatch(markMessageAsSeen({ chat, messageId }));
+    return { chat, messageId };
+  }
+);
+
 export const rpcActions = {
   addMessageToPrivateChat,
 };
