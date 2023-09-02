@@ -1,11 +1,14 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { userApi } from 'api/userApi';
-import { logger } from 'redux-logger';
+import { createLogger, logger } from 'redux-logger';
 //import userSlice from './userSlice';
 import uiSlice from './uiSlice';
 import appSlice from './appSlice';
 //import dataSlice from './dataSlice';
+const _logger = createLogger({
+  collapsed: true,
+});
 
 export const store = configureStore({
   reducer: {
@@ -16,7 +19,7 @@ export const store = configureStore({
     //data: dataSlice.reducer,
   },
   middleware(getDefaultMiddleware) {
-    return getDefaultMiddleware().concat(userApi.middleware).concat(logger);
+    return getDefaultMiddleware().concat(userApi.middleware).concat(_logger);
   },
 });
 
