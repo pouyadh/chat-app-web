@@ -25,19 +25,6 @@ import { ChatListItem, setActiveChat } from 'store/appSlice';
 
 export default function ChatList() {
   const chatList = useChatList();
-  // const chats = useAppSelector(selectChats);
-  // const chatFolders = useAppSelector(selectChatFolders);
-  // const selectedFolderId = useAppSelector(selectSelectedFolderId);
-
-  // const filteredChats = React.useMemo(() => {
-  //   if (selectedFolderId && chatFolders?.length) {
-  //     const folder = chatFolders.find((f) => f.id === selectedFolderId);
-  //     return chats?.filter((chat) => folder?.chatIds.includes(chat.id));
-  //   } else {
-  //     return chats;
-  //   }
-  // }, [chats, chatFolders, selectedFolderId]);
-
   const dispatch = useAppDispatch();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
