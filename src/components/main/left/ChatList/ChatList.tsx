@@ -20,13 +20,7 @@ import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 import MarkChatReadOutlinedIcon from '@mui/icons-material/MarkChatReadOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { dispatch, useAppDispatch, useAppSelector } from 'store/store';
-import {
-  useChatData,
-  useChatList,
-  useChatListItemData,
-  useMessageContent,
-  useUserPublicProfile,
-} from 'store/selector';
+import { useChatList, useChatListItemData } from 'store/selector';
 import { ChatListItem, setActiveChat } from 'store/appSlice';
 
 export default function ChatList() {
@@ -111,7 +105,12 @@ function ChatItem(props: { chat: ChatListItem }) {
         </ListItemAvatar>
         <ListItemText
           primary={
-            <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Stack
+              component="span"
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               <span>{title || 'ㅤ'}</span>
               <Typography variant="caption" color="gray">
                 {time || ''}
@@ -119,7 +118,12 @@ function ChatItem(props: { chat: ChatListItem }) {
             </Stack>
           }
           secondary={
-            <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Stack
+              component="span"
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               <span>
                 <Typography
                   sx={{ display: 'inline' }}
