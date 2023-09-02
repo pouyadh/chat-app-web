@@ -30,7 +30,6 @@ export function initSocket() {
     }
   });
   socket.on('appAction', async ({ method, arg }, callback) => {
-    console.log(method, arg);
     if (method in rpcActions) {
       const _method = method as keyof typeof rpcActions;
       const result = await dispatch(rpcActions[_method](arg));
