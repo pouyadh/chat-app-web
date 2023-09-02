@@ -50,7 +50,7 @@ export default function Message({ message, listRef }: MessageProps) {
       }}
       ref={ref}
     >
-      <Box>
+      <Box sx={{ maxWidth: '70%' }}>
         <Box
           sx={{
             backgroundColor: ({ palette }) =>
@@ -111,4 +111,8 @@ const renderMessageTime = (timestamp: string) => {
   return <>{strTime}</>;
 };
 
-const renderText = (text: string) => <Typography lineHeight={1.2}>{text}</Typography>;
+const renderText = (text: string) => (
+  <Typography lineHeight={1.2} variant="body1" sx={{ whiteSpace: 'pre-line' }}>
+    {text}
+  </Typography>
+);
