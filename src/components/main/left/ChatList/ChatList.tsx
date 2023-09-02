@@ -9,6 +9,7 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  MenuProps,
   Stack,
 } from '@mui/material';
 
@@ -18,7 +19,7 @@ import MarkChatReadOutlinedIcon from '@mui/icons-material/MarkChatReadOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { dispatch, useAppDispatch, useAppSelector } from 'store/store';
 import { useChatList, useChatListItemData } from 'store/selector';
-import { ChatListItem, setActiveChat } from 'store/appSlice';
+import { ChatListItem, ChatTypeAndId, reportMessageAsSeen, setActiveChat } from 'store/appSlice';
 
 export default function ChatList() {
   const chatList = useChatList();
@@ -128,4 +129,61 @@ function ChatItem(props: { chat: ChatListItem }) {
   } else {
     return null;
   }
+}
+
+function ChatContextMenu({
+  chat,
+  onItemSelect,
+  ...props
+}: MenuProps & { chat: ChatTypeAndId; onItemSelect?: () => any }) {
+  let typeSpecificItems: React.ReactNode[] | null = null;
+  const dispatch = useAppDispatch();
+
+  switch (chat.type) {
+    case 'user':
+      typeSpecificItems = [
+        <MenuItem key="delete chat">
+          <DeleteOutlinedIcon /> Delete chat
+        </MenuItem>,
+      ];
+      break;
+    case 'group':
+      typeSpecificItems = [
+        <MenuItem key="delete group">
+          <DeleteOutlinedIcon /> Delete group
+        </MenuItem>,
+      ];
+      break;
+    case 'channel':
+      typeSpecificItems = [
+        <MenuItem key="delete channel">
+          <DeleteOutlinedIcon /> Delete channel
+        </MenuItem>,
+      ];
+      break;
+  }
+  return (
+    <Menu {...props}>
+      <MenuItem>
+        <OpenInNewOutlinedIcon /> Open in new tab
+      </MenuItem>
+      <MenuItem>
+        <FolderOutlinedIcon /> Add to folder
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          dispatch(
+            reportMessageAsSeen({
+              chat,
+              messageId: '',
+            })
+          );
+          onItemSelect?.();
+        }}
+      >
+        <MarkChatReadOutlinedIcon /> Mark as read
+      </MenuItem>
+      {typeSpecificItems}
+    </Menu>
+  );
 }
