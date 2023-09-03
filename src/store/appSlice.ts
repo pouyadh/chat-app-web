@@ -342,9 +342,11 @@ export const sendMessage = createAsyncThunk('chat/send-message', async (_, thunk
   const { type, id } = state.app.activeChat;
   switch (type) {
     case 'user':
-      const resp = await socket
-        .sendPrivateMessage({ userId: id, text: state.app.messageInput.text })
-        .catch(console.log);
+      const resp = await socket.sendPrivateMessage({
+        userId: id,
+        text: state.app.messageInput.text,
+      });
+
       if (resp) dispatch(addMessageToPrivateChat(resp));
       return resp;
     case 'group':
