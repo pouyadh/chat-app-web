@@ -197,9 +197,9 @@ export const signin = createAsyncThunk(
   }
 );
 export const signout = createAsyncThunk('user/signout', async (_, { dispatch }) => {
-  await userReq.signout();
   socket.socket.disconnect();
   dispatch(clearUser());
+  await userReq.signout();
 });
 export const forgotPassword = createAsyncThunk(
   'user/forgot-password',
