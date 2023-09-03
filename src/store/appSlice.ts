@@ -148,6 +148,48 @@ const appSlice = createSlice({
           break;
       }
     },
+
+    markMessageAsDelivered(
+      state,
+      action: PayloadAction<{
+        chat: ChatTypeAndId;
+        messageId: DBDocId;
+        sender?: 'own' | 'except-own' | 'all';
+      }>
+    ) {
+      const user = state.data.user;
+      if (!user) return;
+      const { type: chatType, id: chatId } = action.payload.chat;
+      const { messageId } = action.payload;
+      const shouldMarkFns = {
+        own: (senderId: DBDocId) => senderId === user._id,
+        'except-own': (senderId: DBDocId) => senderId !== user._id,
+        all: (senderId: DBDocId) => true,
+      };
+      let shouldMarkFn = shouldMarkFns[action.payload.sender ? action.payload.sender : 'own'];
+      switch (chatType) {
+        case 'user':
+          const pv = user.privateChats.find((pv) => pv.user === chatId);
+          if (pv) {
+            let msgIdx = pv.messages.length - 1;
+            if (messageId) {
+              msgIdx = pv.messages.findIndex((msg) => msg._id === messageId);
+            }
+
+            while (msgIdx >= 0 && pv.messages[msgIdx].status === 'sent') {
+              if (shouldMarkFn(pv.messages[msgIdx].sender)) {
+                pv.messages[msgIdx].status = 'delivered';
+              }
+              msgIdx--;
+            }
+          }
+          break;
+        case 'group':
+          break;
+        case 'channel':
+          break;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -194,6 +236,7 @@ export const {
   clearUser,
   addMessageToPrivateChat,
   markMessageAsSeen,
+  markMessageAsDelivered,
 } = appSlice.actions;
 
 export default appSlice;
@@ -325,4 +368,5 @@ export const reportMessageAsSeen = createAsyncThunk(
 export const rpcActions = {
   addMessageToPrivateChat,
   markMessageAsSeen,
+  markMessageAsDelivered,
 };
