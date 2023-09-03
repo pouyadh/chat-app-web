@@ -108,16 +108,37 @@ const appSlice = createSlice({
         }
       }
     },
-    markMessageAsSeen(state, action: PayloadAction<{ chat: ChatTypeAndId; messageId: DBDocId }>) {
+    markMessageAsSeen(
+      state,
+      action: PayloadAction<{
+        chat: ChatTypeAndId;
+        messageId: DBDocId;
+        sender?: 'own' | 'except-own' | 'all';
+      }>
+    ) {
+      const user = state.data.user;
+      if (!user) return;
       const { type: chatType, id: chatId } = action.payload.chat;
       const { messageId } = action.payload;
+      const shouldMarkFns = {
+        own: (senderId: DBDocId) => senderId === user._id,
+        'except-own': (senderId: DBDocId) => senderId !== user._id,
+        all: (senderId: DBDocId) => true,
+      };
+      let shouldMarkFn = shouldMarkFns[action.payload.sender ? action.payload.sender : 'own'];
       switch (chatType) {
         case 'user':
-          const pv = state.data.user?.privateChats.find((pv) => pv.user === chatId);
+          const pv = user.privateChats.find((pv) => pv.user === chatId);
           if (pv) {
-            const msg = pv.messages.find((msg) => msg._id === messageId);
-            if (msg) {
-              msg.status = 'seen';
+            let msgIdx = pv.messages.length - 1;
+            if (messageId) {
+              msgIdx = pv.messages.findIndex((msg) => msg._id === messageId);
+            }
+            while (msgIdx >= 0 && pv.messages[msgIdx].status !== 'seen') {
+              if (shouldMarkFn(pv.messages[msgIdx].sender)) {
+                pv.messages[msgIdx].status = 'seen';
+              }
+              msgIdx--;
             }
           }
           break;
@@ -296,7 +317,7 @@ export const reportMessageAsSeen = createAsyncThunk(
   async ({ chat, messageId }: { chat: ChatTypeAndId; messageId: DBDocId }, thunkApi) => {
     const state = thunkApi.getState() as RootState;
     await socket.markMessageAsSeen({ chat, messageId });
-    thunkApi.dispatch(markMessageAsSeen({ chat, messageId }));
+    thunkApi.dispatch(markMessageAsSeen({ chat, messageId, sender: 'except-own' }));
     return { chat, messageId };
   }
 );
