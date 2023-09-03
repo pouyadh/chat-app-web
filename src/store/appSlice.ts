@@ -202,7 +202,6 @@ const appSlice = createSlice({
               (pv) => ({ type: 'user', id: pv.user } as ChatListItem)
             )
           );
-          console.log(action.payload.privateChats);
         }
       })
       .addCase(addContact.fulfilled, (state, action) => {
